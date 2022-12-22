@@ -1,11 +1,18 @@
 import './App.css';
 
-function App() {
-  return (
-    <>
-      <p>Let's build News app</p>
-    </>
-  );
+import React, { Component } from 'react'
+import Navbar from './Components/Navbar';
+import NewsComponent from './Components/NewsComponent';
+
+export default class App extends Component {
+
+  render() {
+    return (
+      <div>
+        <Navbar/>
+        <NewsComponent/>
+      </div>
+    )
+  }
 }
 
-export default App;
