@@ -8,7 +8,7 @@ export class NewsItem extends Component {
       <div>
         <div className="container my-3">
             <div className="card" style={{width: "18rem"}}>
-                <img src={imgUrl} className="card-img-top" alt="..."/>
+                <img src={imgUrl?imgUrl:"https://akm-img-a-in.tosshub.com/indiatoday/images/story/202212/jio_2_0-sixteen_nine.jpg"} className="card-img-top" alt="..."/>
             <div className="card-body">
                 <h5 className="card-title">{title}</h5>
                 <p className="card-text">{description}</p>
