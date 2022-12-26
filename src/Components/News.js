@@ -8,39 +8,45 @@ export class NewsComponent extends Component {
     this.state={
       article: [],
       loading:false,
-      PageNumber: 1
+      pageNUmber: 1,
+      totalResults: 0
     }
   }
 
   async componentDidMount(){
-    let url = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=b544636c9d7b42ea9c49cc19db812d65";
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    console.log(parsedData);
-    this.setState({article:parsedData.articles});
-  }
-
-  handleNextClick=async()=>{
-    console.log("Handle Next Click");
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=b544636c9d7b42ea9c49cc19db812d65&page=${this.state.PageNumber+1}`;
+    let url = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=b544636c9d7b42ea9c49cc19db812d65&pagesize=6";
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
     this.setState({
       article:parsedData.articles,
-      PageNumber:this.state.PageNumber+1
+      totalResults:parsedData.totalResults
+    });
+  }
+
+  handleNextClick=async()=>{
+    console.log("Handle Next Click");
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=b544636c9d7b42ea9c49cc19db812d65&page=${this.state.pageNUmber+1}&pagesize=6`;
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    console.log(parsedData);
+    this.setState({
+      article:parsedData.articles,
+      pageNUmber:this.state.pageNUmber+1,
+      totalResults:parsedData.totalResults
     });
   }
 
   handlePrevClick=async()=>{
     console.log("Handle Prev Click");
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=b544636c9d7b42ea9c49cc19db812d65&page=${this.state.PageNumber-1}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=b544636c9d7b42ea9c49cc19db812d65&page=${this.state.pageNUmber-1}&pagesize=6`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
     this.setState({
       article:parsedData.articles,
-      PageNumber:this.state.PageNumber-1
+      pageNUmber:this.state.pageNUmber-1,
+      totalResults:parsedData.totalResults
     });
   }
 
@@ -56,9 +62,9 @@ export class NewsComponent extends Component {
           })}
         </div>
         <div className="container d-flex justify-content-center">
-            <button type="button" disabled={this.state.PageNumber<=1?true:false} onClick={this.handlePrevClick} className="btn btn-primary">&larr; Prev</button>
-            <button type="button" className="btn">{this.state.PageNumber}</button>
-            <button type="button" onClick={this.handleNextClick} className="btn btn-primary">Next &rarr;</button>
+            <button type="button" disabled={this.state.pageNUmber<=1?true:false} onClick={this.handlePrevClick} className="btn btn-primary">&larr; Prev</button>
+            <button type="button" className="btn">{this.state.pageNUmber}</button>
+            <button type="button" disabled={this.state.pageNUmber>=this.state.totalResults/6?true:false} onClick={this.handleNextClick} className="btn btn-primary">Next &rarr;</button>
         </div>
       </div>
     )
