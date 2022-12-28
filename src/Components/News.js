@@ -5,14 +5,19 @@ import PropTypes from 'prop-types'
 
 export class News extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state={
       article: [],
       loading:false,
       pageNumber: 1,
       totalResults: 0
     }
+    document.title = `News App - ${this.capitalizeFirstLetter(this.props.category)}`;
+  }
+
+  capitalizeFirstLetter = (string)=>{
+    return string.charAt(0).toUpperCase()+string.substring(1);
   }
 
   async updateNews(){
@@ -46,7 +51,7 @@ export class News extends Component {
     return (
       <div className="container my-3">
         <div className="text-center" style={{margin:'40px 0px'}}>
-          <h1>NewsApp - Top Headlines</h1>
+          <h1>NewsApp - Top Headlines on {this.capitalizeFirstLetter(this.props.category)}</h1>
         </div>
 
         {this.state.loading && <Spinner/>}
