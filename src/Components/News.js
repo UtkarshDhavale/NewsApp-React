@@ -22,7 +22,7 @@ export class News extends Component {
   }
 
   async updateNews(){
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=abad17fdf79441879a9a58830043da71&page=${this.state.pageNumber}&pagesize=${this.props.pagesize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.pageNumber}&pagesize=${this.props.pagesize}`;
     this.setState({loading:true});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -49,7 +49,7 @@ export class News extends Component {
   }*/
 
   fetchMoreData = async () => {
-    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=abad17fdf79441879a9a58830043da71&page=${this.state.pageNumber+1}&pagesize=${this.props.pagesize}`;
+    const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apikey}&page=${this.state.pageNumber+1}&pagesize=${this.props.pagesize}`;
     this.setState({ pageNumber: this.state.pageNumber+1});
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -64,7 +64,7 @@ export class News extends Component {
     return (
       <>
       <div className="container my-3">
-        <div className="text-center" style={{margin:'40px 0px'}}>
+        <div className="text-center" style={{margin:'40px 0px', marginTop:'90px'}}>
           <h1>NewsApp - Top {this.capitalizeFirstLetter(this.props.category)} Headlines</h1>
         </div>
 
